@@ -44,6 +44,8 @@ jobs:
           git rm -rf --quiet . >/dev/null 2>&1 || true
           cp -r ../dist/. .
           cp ../wrangler.jsonc .
+          sed -i 's/"directory": "dist"/"directory": "."/' wrangler.jsonc
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) $(date -u +%s)" > deploy-version.txt
           git add -A
           if git diff --cached --quiet; then
             echo "no changes, skipping commit"
