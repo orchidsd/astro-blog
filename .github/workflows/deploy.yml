@@ -43,6 +43,7 @@ jobs:
           cd deploy
           git rm -rf --quiet . >/dev/null 2>&1 || true
           cp -r ../dist/. .
+          cp ../wrangler.jsonc .
           git add -A
           if git diff --cached --quiet; then
             echo "no changes, skipping commit"
