@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
@@ -12,12 +13,15 @@ import { SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main class="search">
-			<h1>搜索</h1>
-			<input id="q" type="search" placeholder="输入关键词，如 Hexo / Cloudflare …" autocomplete="off" />
-			<ul id="results" class="results"></ul>
-			<p id="empty" class="empty" hidden>未找到匹配的文章。</p>
-		</main>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main search">
+				<h1>搜索</h1>
+				<input id="q" type="search" placeholder="输入关键词，如 Hexo / Cloudflare …" autocomplete="off" />
+				<ul id="results" class="results"></ul>
+				<p id="empty" class="empty" hidden>未找到匹配的文章。</p>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
@@ -60,14 +64,14 @@ import { SITE_TITLE } from '../consts';
 </script>
 <style>
 	.search {
-		width: 720px;
+		width: 100%;
 	}
 	#q {
 		width: 100%;
 		padding: 0.7em 1em;
 		font-size: 1em;
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 10px;
+		border: 1px solid var(--line-divider);
+		border-radius: var(--radius);
 	}
 	.results {
 		list-style: none;
@@ -80,20 +84,20 @@ import { SITE_TITLE } from '../consts';
 	.results a {
 		display: block;
 		padding: 0.8em 1em;
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 10px;
+		border: 1px solid var(--line-divider);
+		border-radius: var(--radius);
 	}
 	.results .t {
 		font-weight: 600;
 	}
 	.results .d {
 		display: block;
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 		font-size: 0.85em;
 		margin-top: 0.2em;
 	}
 	.empty {
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 		margin-top: 1.5em;
 	}
 </style>

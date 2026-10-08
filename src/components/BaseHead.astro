@@ -36,11 +36,9 @@ const { title, description } = Astro.props;
 		const key = 'theme';
 		const saved = localStorage.getItem(key);
 		const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-		document.documentElement.dataset.theme = theme;
-		document.addEventListener('astro:page-load', () => {
-			const btn = document.getElementById('theme-toggle');
-			if (btn) btn.textContent = document.documentElement.dataset.theme === 'dark' ? '☀' : '☾';
-		});
+		const html = document.documentElement;
+		html.classList.toggle('dark', theme === 'dark');
+		html.style.colorScheme = theme;
 	})();
 </script>
 

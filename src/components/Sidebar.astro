@@ -1,0 +1,109 @@
+---
+import { getCollection } from 'astro:content';
+import about from '../data/about.json';
+import { taxSlug } from '../lib/posts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const me = about[0];
+const catCount = new Map<string, number>();
+for (const p of posts) {
+	for (const c of p.data.categories ?? []) catCount.set(c, (catCount.get(c) ?? 0) + 1);
+}
+const tags = new Set<string>();
+for (const p of posts) {
+	for (const t of p.data.tags ?? []) tags.add(t);
+}
+const catList = [...catCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+---
+
+<aside class="side-col">
+	<div class="widget widget-author">
+		<a class="author-card" href="/about/">
+			<img class="author-avatar" src={me.avatarImg} alt={me.name} width="64" height="64" />
+			<div class="author-info">
+				<span class="author-name">{me.name}</span>
+				<span class="author-sub">{me.subtitle}</span>
+			</div>
+		</a>
+	</div>
+
+	<div class="widget">
+		<h2>分类</h2>
+		<ul>
+			{catList.map(([c, n]) => (
+				<li>
+					<a href={`/categories/${taxSlug(c)}/`}>
+						<span>{c}</span>
+						<span class="count">{n}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<div class="widget">
+		<h2>统计</h2>
+		<ul>
+			<li>
+				<a href="/archives/">
+					<span>文章</span>
+					<span class="count">{posts.length}</span>
+				</a>
+			</li>
+			<li>
+				<a href="/categories/">
+					<span>分类</span>
+					<span class="count">{catCount.size}</span>
+				</a>
+			</li>
+			<li>
+				<a href="/tags/">
+					<span>标签</span>
+					<span class="count">{tags.size}</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</aside>
+
+<style>
+	.widget-author {
+		padding: 0;
+		overflow: hidden;
+	}
+	.author-card {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		padding: 1.2rem;
+	}
+	.author-avatar {
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+		box-shadow: var(--shadow-sm);
+	}
+	.author-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+		min-width: 0;
+	}
+	.author-name {
+		font-weight: 700;
+		font-size: 1.1rem;
+		color: var(--deep-text);
+	}
+	.author-sub {
+		font-size: 0.85em;
+		color: var(--content-meta);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>

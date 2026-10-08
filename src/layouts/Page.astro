@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
 	title?: string;
@@ -17,18 +18,27 @@ const { title = '页面', description = '' } = Astro.props;
 	</head>
 	<body>
 		<Header />
-		<main class="page">
-			<h1>{title}</h1>
-			<article class="content">
-				<slot />
-			</article>
-		</main>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main">
+				<h1>{title}</h1>
+				<article class="content">
+					<slot />
+				</article>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
 <style>
-	.page {
-		width: 800px;
+	.page-grid {
+		padding-top: calc(var(--navbar-h) + 1.5rem);
+	}
+	.page-main {
+		padding: 1.6rem 1.8rem;
+	}
+	.page-main h1 {
+		margin-top: 0;
 	}
 	.content {
 		line-height: 1.9;

@@ -2,49 +2,29 @@
 import type { Post } from '../lib/posts';
 import { postHref, taxSlug } from '../lib/posts';
 const { post } = Astro.props as { post: Post };
+const cover = post.data.heroImage ?? '';
+const pinned = (post.data.top ?? 0) > 0;
 ---
 
-<article class="card">
-	<h2>
-		<a href={postHref(post)}>{post.data.title}</a>
-	</h2>
-	<div class="meta">
-		<time datetime={post.data.pubDate.toISOString()}>
-			{post.data.pubDate.toLocaleDateString('zh-CN')}
-		</time>
-		<span class="cats">
-			{post.data.categories?.map((c) => <a href={`/categories/${taxSlug(c)}/`}>{c}</a>)}
-		</span>
+<article class:list={['card-base', 'post-card', { 'has-cover': !!cover, pinned }]}>
+	{cover && (
+		<a class="post-cover" href={postHref(post)}>
+			<img src={cover} alt="" loading="lazy" />
+		</a>
+	)}
+	<div class="post-body">
+		<h3>
+			<a href={postHref(post)}>{post.data.title}</a>
+		</h3>
+		<div class="post-meta">
+			{pinned && <span class="pin-badge">置顶</span>}
+			<time datetime={post.data.pubDate.toISOString()}>
+				{post.data.pubDate.toLocaleDateString('zh-CN')}
+			</time>
+			<span class="post-cats">
+				{post.data.categories?.map((c) => <a href={`/categories/${taxSlug(c)}/`}>{c}</a>)}
+			</span>
+		</div>
+		{post.data.description && <p class="post-desc">{post.data.description}</p>}
 	</div>
-	{post.data.description && <p class="desc">{post.data.description}</p>}
 </article>
-<style>
-	.card {
-		padding: 1.2em 1.4em;
-		margin: 1em 0;
-		background: rgb(var(--bg));
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 10px;
-		box-shadow: 0 1px 3px rgba(var(--gray), 12%);
-	}
-	.card h2 {
-		margin: 0 0 0.4em;
-		font-size: 1.15em;
-	}
-	.card .meta {
-		display: flex;
-		gap: 1em;
-		align-items: center;
-		color: rgb(var(--gray));
-		font-size: 0.85em;
-	}
-	.card .cats a {
-		margin-right: 0.5em;
-		color: var(--accent);
-	}
-	.card .desc {
-		margin: 0.6em 0 0;
-		font-size: 0.9em;
-		color: rgb(var(--gray));
-	}
-</style>

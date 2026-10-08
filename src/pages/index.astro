@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import PostCard from '../components/PostCard.astro';
+import Sidebar from '../components/Sidebar.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog')).sort(
@@ -21,43 +22,39 @@ const recent = posts.filter((p) => !featured.includes(p)).slice(0, 9);
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1 class="site-title">{SITE_TITLE}</h1>
-			<p class="site-desc">{SITE_DESCRIPTION}</p>
-			<section>
-				{featured.map((p) => <PostCard post={p} />)}
-			</section>
-			<h2 class="sec-title">最新发布</h2>
-			<section class="grid">
-				{recent.map((p) => <PostCard post={p} />)}
-			</section>
-		</main>
+		<div class="banner-wrap">
+			<div class="banner-inner">
+				<h1 class="banner-title">{SITE_TITLE}</h1>
+				<p class="banner-subtitle">{SITE_DESCRIPTION}</p>
+			</div>
+		</div>
+		<div class="layout-grid">
+			<main class="main-col">
+				<section class="main-cards">
+					{featured.map((p) => <PostCard post={p} />)}
+				</section>
+				<h2 class="sec-title">最新发布</h2>
+				<section class="main-cards">
+					{recent.map((p) => <PostCard post={p} />)}
+				</section>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
 <style>
-	.site-title {
-		text-align: center;
-		margin-bottom: 0.2em;
+	.banner-wrap {
+		min-height: var(--banner-height-home);
+		margin-bottom: -2.5rem;
 	}
-	.site-desc {
-		text-align: center;
-		color: rgb(var(--gray));
-		margin-bottom: 2em;
+	.banner-title {
+		animation-duration: 0.4s;
 	}
-	.sec-title {
-		margin-top: 3em;
-	}
-	.grid {
-		columns: 2;
-		column-gap: 1.5em;
-	}
-	.grid :global(.card) {
-		break-inside: avoid;
-	}
-	@media (max-width: 760px) {
-		.grid {
-			columns: 1;
+	@media (max-width: 640px) {
+		.banner-wrap {
+			min-height: 70vh;
+			min-height: 450px;
 		}
 	}
 </style>

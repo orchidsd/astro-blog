@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import link from '../data/link.json';
 import { SITE_TITLE } from '../consts';
 ---
@@ -13,39 +14,42 @@ import { SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main class="link">
-			<h1>友链</h1>
-			<div class="linkmap">
-				<a href="https://www.freecodecamp.com" target="_blank" rel="noopener">添加本站到友链</a>
-			</div>
-			{link.map((group) => (
-				<section>
-					<h2>
-						{group.class_name}
-						<span class="desc">{group.class_desc}</span>
-					</h2>
-					<ul class="cards">
-						{group.link_list.map((item) => (
-							<li class="card">
-								<a href={item.link} target="_blank" rel="noopener">
-									<img src={item.avatar} alt={item.name} loading="lazy" />
-									<span class="info">
-										<span class="site-name">{item.name}</span>
-										<span class="site-descr">{item.descr}</span>
-									</span>
-								</a>
-							</li>
-						))}
-					</ul>
-				</section>
-			))}
-		</main>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main link">
+				<h1>友链</h1>
+				<div class="linkmap">
+					<a href="https://www.freecodecamp.com" target="_blank" rel="noopener">添加本站到友链</a>
+				</div>
+				{link.map((group) => (
+					<section>
+						<h2>
+							{group.class_name}
+							<span class="desc">{group.class_desc}</span>
+						</h2>
+						<ul class="cards">
+							{group.link_list.map((item) => (
+								<li class="card">
+									<a href={item.link} target="_blank" rel="noopener">
+										<img src={item.avatar} alt={item.name} loading="lazy" />
+										<span class="info">
+											<span class="site-name">{item.name}</span>
+											<span class="site-descr">{item.descr}</span>
+										</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				))}
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
 <style>
 	.link {
-		width: 900px;
+		width: 100%;
 	}
 	.linkmap {
 		margin-bottom: 2em;
@@ -57,7 +61,7 @@ import { SITE_TITLE } from '../consts';
 	}
 	.desc {
 		font-size: 0.7em;
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 		margin-left: 0.6em;
 	}
 	.cards {
@@ -72,8 +76,8 @@ import { SITE_TITLE } from '../consts';
 		align-items: center;
 		gap: 0.7em;
 		padding: 0.7em 0.9em;
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 10px;
+		border: 1px solid var(--line-divider);
+		border-radius: var(--radius);
 		height: 100%;
 	}
 	.card img {
@@ -82,7 +86,7 @@ import { SITE_TITLE } from '../consts';
 		border-radius: 8px;
 		flex-shrink: 0;
 		object-fit: cover;
-		background: rgb(var(--gray-light));
+		background: var(--line-divider);
 	}
 	.card .info {
 		display: flex;
@@ -94,7 +98,7 @@ import { SITE_TITLE } from '../consts';
 	}
 	.site-descr {
 		font-size: 0.78em;
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;

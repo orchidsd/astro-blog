@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseHead from '../../../../components/BaseHead.astro';
 import Footer from '../../../../components/Footer.astro';
 import Header from '../../../../components/Header.astro';
+import Sidebar from '../../../../components/Sidebar.astro';
 import { postPathParts, taxSlug } from '../../../../lib/posts';
 
 type Post = CollectionEntry<'blog'>;
@@ -33,62 +34,61 @@ const next = all[idx - 1] ?? undefined;
 	</head>
 	<body>
 		<Header />
-		<main class="post">
-			<article>
-				<header class="post-head">
-					<h1>{post.data.title}</h1>
-					<div class="post-meta">
-						<time datetime={post.data.pubDate.toISOString()}>
-							{year}-{month}-{day}
-						</time>
-						{post.data.categories?.length > 0 && (
-							<span>
-								{post.data.categories.map((c) => (
-									<a href={`/categories/${taxSlug(c)}/`}>{c}</a>
-								))}
-							</span>
-						)}
-
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main post-main">
+				<article>
+					<header class="post-head">
+						<h1>{post.data.title}</h1>
+						<div class="post-meta">
+							<time datetime={post.data.pubDate.toISOString()}>
+								{year}-{month}-{day}
+							</time>
+							{post.data.categories?.length > 0 && (
+								<span>
+									{post.data.categories.map((c) => (
+										<a href={`/categories/${taxSlug(c)}/`}>{c}</a>
+									))}
+								</span>
+							)}
+						</div>
+					</header>
+					<div class="prose">
+						<Content />
 					</div>
-				</header>
-				<div class="content">
-					<Content />
-				</div>
-			</article>
-			<nav class="pager">
-				{prev && (
-					<a class="prev" href={`/${postPathParts(prev).year}/${postPathParts(prev).month}/${postPathParts(prev).day}/${prev.id.replace(/\.md$/, '')}/`}>
-						← {prev.data.title}
-					</a>
-				)}
-				{next && (
-					<a
-						class="next"
-						href={`/${postPathParts(next).year}/${postPathParts(next).month}/${postPathParts(next).day}/${next.id.replace(/\.md$/, '')}/`}
-					>
-						{next.data.title} →
-					</a>
-				)}
-			</nav>
-		</main>
+					<nav class="pager">
+						{prev && (
+							<a class="prev" href={`/${postPathParts(prev).year}/${postPathParts(prev).month}/${postPathParts(prev).day}/${prev.id.replace(/\.md$/, '')}/`}>
+								← {prev.data.title}
+							</a>
+						)}
+						{next && (
+							<a
+								class="next"
+								href={`/${postPathParts(next).year}/${postPathParts(next).month}/${postPathParts(next).day}/${next.id.replace(/\.md$/, '')}/`}
+							>
+								{next.data.title} →
+							</a>
+						)}
+					</nav>
+				</article>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
 <style>
-	.post {
-		width: 800px;
-	}
 	.post-head {
-		margin-bottom: 2em;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		margin-bottom: 1.5em;
 		padding-bottom: 1em;
+		border-bottom: 1px solid var(--line-divider);
 	}
 	.post-head h1 {
 		margin: 0 0 0.5em;
-		font-size: 1.9em;
+		font-size: 1.8em;
 	}
 	.post-meta {
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 		font-size: 0.9em;
 		display: flex;
 		gap: 1.5em;
@@ -96,8 +96,24 @@ const next = all[idx - 1] ?? undefined;
 	.post-meta a {
 		margin-right: 0.5em;
 	}
-	.content {
+	.prose {
 		line-height: 1.9;
+	}
+	.prose :global(h2),
+	.prose :global(h3) {
+		position: relative;
+		padding-left: 0.6em;
+	}
+	.prose :global(h2)::before,
+	.prose :global(h3)::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.35em;
+		bottom: 0.35em;
+		width: 4px;
+		border-radius: 2px;
+		background: var(--primary);
 	}
 	.pager {
 		display: flex;
@@ -105,7 +121,7 @@ const next = all[idx - 1] ?? undefined;
 		gap: 1em;
 		margin-top: 3em;
 		padding-top: 1em;
-		border-top: 1px solid rgb(var(--gray-light));
+		border-top: 1px solid var(--line-divider);
 		font-size: 0.9em;
 	}
 	.pager a {

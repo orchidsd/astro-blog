@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
@@ -12,20 +13,23 @@ import { SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main class="music">
-			<h1>音乐</h1>
-			<p class="placeholder">
-				音乐播放器正在接入中，敬请期待。日常常听：许嵩、民谣、华语流行与轻音乐。
-			</p>
-		</main>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main music">
+				<h1>音乐</h1>
+				<p class="placeholder">
+					音乐播放器正在接入中，敬请期待。日常常听：许嵩、民谣、华语流行与轻音乐。
+				</p>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
 <style>
 	.music {
-		width: 720px;
+		width: 100%;
 	}
 	.placeholder {
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 	}
 </style>

@@ -2,8 +2,10 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import essay from '../data/essay.json';
 import { SITE_TITLE } from '../consts';
+
 const d = essay[0] as any;
 ---
 
@@ -14,33 +16,36 @@ const d = essay[0] as any;
 	</head>
 	<body>
 		<Header />
-		<main class="essay">
-			<h1>{d.title}</h1>
-			<p class="sub">{d.subTitle}</p>
-			<ul class="list">
-				{d.essay_list.map((item: any) => (
-					<li>
-						{item.link ? (
-							<a href={item.link} target="_blank" rel="noopener">
-								{item.content}
-							</a>
-						) : (
-							<span>{item.content}</span>
-						)}
-						<span class="date">{item.date}</span>
-					</li>
-				))}
-			</ul>
-		</main>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main essay">
+				<h1>{d.title}</h1>
+				<p class="sub">{d.subTitle}</p>
+				<ul class="list">
+					{d.essay_list.map((item: any) => (
+						<li>
+							{item.link ? (
+								<a href={item.link} target="_blank" rel="noopener">
+									{item.content}
+								</a>
+							) : (
+								<span>{item.content}</span>
+							)}
+							<span class="date">{item.date}</span>
+						</li>
+					))}
+				</ul>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
 <style>
 	.essay {
-		width: 700px;
+		width: 100%;
 	}
 	.sub {
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 	}
 	.list {
 		list-style: none;
@@ -48,14 +53,14 @@ const d = essay[0] as any;
 	}
 	.list li {
 		padding: 0.9em 0;
-		border-bottom: 1px dashed rgb(var(--gray-light));
+		border-bottom: 1px dashed var(--line-divider);
 		display: flex;
 		justify-content: space-between;
 		gap: 1em;
 		align-items: baseline;
 	}
 	.date {
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 		font-size: 0.85em;
 		white-space: nowrap;
 	}

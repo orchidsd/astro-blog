@@ -1,81 +1,144 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+
+const links = [
+	{ href: '/', label: '首页' },
+	{ href: '/archives/', label: '归档' },
+	{ href: '/categories/', label: '分类' },
+	{ href: '/tags/', label: '标签' },
+	{ href: '/link/', label: '友链' },
+	{ href: '/about/', label: '关于' },
+];
 ---
 
-<header>
-	<nav>
-		<h2>
-			<a href="/">{SITE_TITLE}</a>
-		</h2>
-		<div class="internal-links">
-			<HeaderLink href="/">首页</HeaderLink>
-			<HeaderLink href="/archives/">归档</HeaderLink>
-			<HeaderLink href="/categories/">分类</HeaderLink>
-			<HeaderLink href="/tags/">标签</HeaderLink>
-			<HeaderLink href="/search/">搜索</HeaderLink>
-			<button
-				id="theme-toggle"
-				type="button"
-				title="切换深浅色模式"
-				aria-label="切换深浅色模式"
-			>
-				☾
-			</button>
-		</div>
-	</nav>
+<header id="navbar" class="navbar" data-transparent-mode="semifull" data-enable-blur="true">
+	<div class="navbar-inner">
+		<a href="/" class="navbar-brand">
+			<span class="brand-dot"></span>
+			{SITE_TITLE}
+		</a>
+		<nav class="navbar-links" aria-label="主导航">
+			{links.map((l) => <HeaderLink href={l.href}>{l.label}</HeaderLink>)}
+		</nav>
+		<button
+			id="theme-toggle"
+			class="theme-btn"
+			type="button"
+			title="切换深浅色模式"
+			aria-label="切换深浅色模式"
+		>
+			<span class="theme-icon" aria-hidden="true">☾</span>
+		</button>
+	</div>
 </header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
+<style>
+	.navbar {
+		position: fixed;
+		inset: 0 0 auto;
+		z-index: 50;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		background: var(--card-bg-transparent);
+		border-bottom: 1px solid var(--line-divider);
+		transition:
+			box-shadow 0.2s ease,
+			background-color 0.2s ease;
 	}
-	nav {
+	.navbar.scrolled {
+		background: var(--float-panel-bg);
+		box-shadow: var(--shadow-navbar);
+	}
+	html.dark .navbar.scrolled {
+		box-shadow: var(--shadow-navbar-dark);
+	}
+	.navbar-inner {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 0.5rem;
+		max-width: var(--page-width);
+		margin: 0 auto;
+		height: var(--navbar-h);
+		padding: 0 1rem;
+	}
+	.navbar-brand {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		gap: 0.5rem;
+		font-weight: 700;
+		font-size: 1.05rem;
+		color: var(--deep-text);
+		padding: 0.4rem 0.9rem;
+		border-radius: var(--radius);
+		transition: background-color 0.15s ease;
 	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
+	.navbar-brand:hover {
+		background: var(--btn-plain-bg-hover);
+		color: var(--deep-text);
 	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
+	.brand-dot {
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 0.45rem;
+		background: linear-gradient(135deg, var(--primary), oklch(0.82 0.14 var(--hue)));
+		flex-shrink: 0;
 	}
-	@media (max-width: 720px) {
-		nav {
-			flex-wrap: wrap;
+	.navbar-links {
+		display: none;
+		justify-content: center;
+		align-items: center;
+		gap: 0.15rem;
+	}
+	@media (min-width: 1024px) {
+		.navbar-links {
+			display: flex;
 		}
 	}
-	#theme-toggle {
-		align-self: center;
+	.theme-btn {
+		justify-self: end;
+		width: 2.5rem;
+		height: 2.5rem;
+		display: grid;
+		place-items: center;
+		border: none;
+		border-radius: var(--radius);
+		background: transparent;
+		cursor: pointer;
+		font-size: 1.15rem;
+		transition:
+			background-color 0.15s ease,
+			transform 0.15s ease;
+	}
+	.theme-btn:hover {
+		background: var(--btn-plain-bg-hover);
+	}
+	.theme-btn:active {
+		transform: scale(0.92);
 	}
 </style>
 
 <script>
 	document.addEventListener('astro:page-load', () => {
-		const btn = document.getElementById('theme-toggle');
-		if (!btn) return;
-		btn.onclick = () => {
-			const html = document.documentElement;
-			const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
-			html.dataset.theme = next;
-			localStorage.setItem('theme', next);
-			btn.textContent = next === 'dark' ? '☀' : '☾';
-		};
+		const btn = document.querySelector('#theme-toggle');
+		const nav = document.querySelector('.navbar');
+		if (btn) {
+			btn.onclick = () => {
+				const html = document.documentElement;
+				const dark = html.classList.toggle('dark');
+				html.style.colorScheme = dark ? 'dark' : 'light';
+				localStorage.setItem('theme', dark ? 'dark' : 'light');
+				updateIcon(dark, btn);
+			};
+			updateIcon(html.classList.contains('dark'), btn);
+		}
+		const onScroll = () => nav?.classList.toggle('scrolled', window.scrollY > 24);
+		onScroll();
+		window.addEventListener('scroll', onScroll, { passive: true });
 	});
+	function updateIcon(dark, btn) {
+		const icon = btn.querySelector('.theme-icon');
+		if (icon) icon.textContent = dark ? '☀' : '☾';
+	}
 </script>

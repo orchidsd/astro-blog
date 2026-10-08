@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../consts';
 import { taxSlug } from '../../lib/posts';
 
@@ -19,17 +20,20 @@ const list = [...tags.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompar
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>标签</h1>
-			<ul class="tags">
-				{list.map(([t, n]) => (
-					<li>
-						<a href={`/tags/${taxSlug(t)}/`}>{t}</a>
-						<span class="count">{n}</span>
-					</li>
-				))}
-			</ul>
-		</main>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main">
+				<h1>标签</h1>
+				<ul class="tags">
+					{list.map(([t, n]) => (
+						<li>
+							<a href={`/tags/${taxSlug(t)}/`}>{t}</a>
+							<span class="count">{n}</span>
+						</li>
+					))}
+				</ul>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
@@ -38,17 +42,20 @@ const list = [...tags.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompar
 		list-style: none;
 		padding: 0;
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.8em;
+		flex-direction: column;
+		gap: 0.4em;
 	}
 	.tags li {
-		background: rgb(var(--gray-light));
-		padding: 0.3em 0.8em;
-		border-radius: 999px;
+		background: var(--line-divider);
+		padding: 0.5em 0.9em;
+		border-radius: var(--radius);
 		font-size: 0.9em;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 	.count {
-		color: rgb(var(--gray));
-		margin-left: 0.4em;
+		color: var(--content-meta);
+		font-size: 0.85em;
 	}
 </style>

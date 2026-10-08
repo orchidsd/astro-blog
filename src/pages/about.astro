@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import creativity from '../data/creativity.json';
 import about from '../data/about.json';
 import { SITE_TITLE } from '../consts';
@@ -16,88 +17,91 @@ const d = about[0] as any;
 	</head>
 	<body>
 		<Header />
-		<main class="about">
-			<section class="bio">
-				<img class="avatar" src={d.avatarImg} alt="avatar" width="96" height="96" />
-				<h1 class="name">{d.name}</h1>
-				<p class="subtitle">{d.subtitle}</p>
-				<p class="desc">{d.description}</p>
-				<p class="hello">{d.helloAbout}</p>
-			</section>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main about">
+				<section class="bio">
+					<img class="avatar" src={d.avatarImg} alt="avatar" width="96" height="96" />
+					<h1 class="name">{d.name}</h1>
+					<p class="subtitle">{d.subtitle}</p>
+					<p class="desc">{d.description}</p>
+					<p class="hello">{d.helloAbout}</p>
+				</section>
 
-			<section class="block maxim">
-				<h2>{d.maxim.maxim_tips}</h2>
-				<p>
-					{d.maxim.maxim_top}
-					{d.maxim.maxim_bottom}
-				</p>
-			</section>
+				<section class="block maxim">
+					<h2>{d.maxim.maxim_tips}</h2>
+					<p>
+						{d.maxim.maxim_top}
+						{d.maxim.maxim_bottom}
+					</p>
+				</section>
 
-			<section class="block">
-				<h2>基本资料</h2>
-				<ul>
-					<li>
-						{d.selfInfo.selfInfoTips1} {d.selfInfo.selfInfoContentYear}
-					</li>
-					<li>
-						{d.selfInfo.selfInfoTips2} {d.selfInfo.selfInfoContent2}
-					</li>
-					<li>
-						{d.selfInfo.selfInfoTips3} {d.selfInfo.selfInfoContent3}
-					</li>
-				</ul>
-			</section>
+				<section class="block">
+					<h2>基本资料</h2>
+					<ul>
+						<li>
+							{d.selfInfo.selfInfoTips1} {d.selfInfo.selfInfoContentYear}
+						</li>
+						<li>
+							{d.selfInfo.selfInfoTips2} {d.selfInfo.selfInfoContent2}
+						</li>
+						<li>
+							{d.selfInfo.selfInfoTips3} {d.selfInfo.selfInfoContent3}
+						</li>
+					</ul>
+				</section>
 
-			<section class="block career">
-				<h2>{d.careers.title}</h2>
-				<ul>
-					{d.careers.list.map((c) => (
-						<li style={`color: ${c.color}`}>{c.desc}</li>
-					))}
-				</ul>
-			</section>
+				<section class="block career">
+					<h2>{d.careers.title}</h2>
+					<ul>
+						{d.careers.list.map((c) => (
+							<li style={`color: ${c.color}`}>{c.desc}</li>
+						))}
+					</ul>
+				</section>
 
-			<section class="block">
-				<h2>技能</h2>
-				<div class="skills">
-					{creativity[0]?.creativity_list.map((s) => (
-						<span class="skill">
-							<span class="dot" style={`background: ${s.color}`} />
-							{s.name}
-						</span>
-					))}
-				</div>
-			</section>
+				<section class="block">
+					<h2>技能</h2>
+					<div class="skills">
+						{creativity[0]?.creativity_list.map((s) => (
+							<span class="skill">
+								<span class="dot" style={`background: ${s.color}`} />
+								{s.name}
+							</span>
+						))}
+					</div>
+				</section>
 
-			<section class="block">
-				<h2>个性</h2>
-				<p>
-					{d.personalities.author_name} · {d.personalities.personality_type}（
-					<a href={d.personalities.name_url}>16Personalities</a>）
-				</p>
-			</section>
+				<section class="block">
+					<h2>个性</h2>
+					<p>
+						{d.personalities.author_name} · {d.personalities.personality_type}（
+						<a href={d.personalities.name_url}>16Personalities</a>）
+					</p>
+				</section>
 
-			<section class="block">
-				<h2>关注偏好</h2>
-				<p>{d.buff.buff_top} · {d.buff.buff_bottom}</p>
-				<p>
-					{d.like.like_title} — {d.like.like_bottom}
-				</p>
-				<p>
-					爱玩 {d.game.game_title}，爱追番，日常听 {d.music.music_title}
-				</p>
-			</section>
-		</main>
+				<section class="block">
+					<h2>关注偏好</h2>
+					<p>{d.buff.buff_top} · {d.buff.buff_bottom}</p>
+					<p>
+						{d.like.like_title} — {d.like.like_bottom}
+					</p>
+					<p>
+						爱玩 {d.game.game_title}，爱追番，日常听 {d.music.music_title}
+					</p>
+				</section>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
 <style>
 	.about {
-		width: 720px;
+		width: 100%;
 	}
 	.bio {
 		text-align: center;
-		margin-bottom: 3em;
+		margin-bottom: 2em;
 	}
 	.avatar {
 		border-radius: 50%;
@@ -106,17 +110,17 @@ const d = about[0] as any;
 		margin: 0.6em 0 0.2em;
 	}
 	.subtitle {
-		color: var(--accent);
+		color: var(--primary);
 	}
 	.desc {
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 	}
 	.block {
 		margin: 2em 0;
 	}
 	.block h2 {
 		padding-bottom: 0.4em;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		border-bottom: 1px solid var(--line-divider);
 		font-size: 1.2em;
 	}
 	.block ul {
@@ -131,7 +135,7 @@ const d = about[0] as any;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.4em;
-		background: rgb(var(--gray-light));
+		background: var(--line-divider);
 		padding: 0.3em 0.8em;
 		border-radius: 999px;
 		font-size: 0.9em;

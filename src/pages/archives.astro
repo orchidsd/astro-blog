@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import { SITE_TITLE } from '../consts';
 import { postHref } from '../lib/posts';
 
@@ -29,25 +30,28 @@ for (const p of posts) {
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>归档</h1>
-			{[...years.entries()].map(([year, months]) => (
-				<section>
-					<h2 class="year">{year}</h2>
-					<ul>
-						{months.map((m) => (
-							<li>
-								<a href={m.href}>{m.title}</a>
-								<span class="date">
-									{year}-{String(m.month).padStart(2, '0')}-
-									{String(m.date.getDate()).padStart(2, '0')}
-								</span>
-							</li>
-						))}
-					</ul>
-				</section>
-			))}
-		</main>
+		<div class="layout-grid page-grid">
+			<main class="card-base page-main">
+				<h1>归档</h1>
+				{[...years.entries()].map(([year, months]) => (
+					<section>
+						<h2 class="year">{year}</h2>
+						<ul>
+							{months.map((m) => (
+								<li>
+									<a href={m.href}>{m.title}</a>
+									<span class="date">
+										{year}-{String(m.month).padStart(2, '0')}-
+										{String(m.date.getDate()).padStart(2, '0')}
+									</span>
+								</li>
+							))}
+						</ul>
+					</section>
+				))}
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
@@ -64,10 +68,10 @@ for (const p of posts) {
 		justify-content: space-between;
 		gap: 1em;
 		padding: 0.4em 0;
-		border-bottom: 1px dashed rgb(var(--gray-light));
+		border-bottom: 1px dashed var(--line-divider);
 	}
 	.date {
-		color: rgb(var(--gray));
+		color: var(--content-meta);
 		font-size: 0.85em;
 		white-space: nowrap;
 	}
