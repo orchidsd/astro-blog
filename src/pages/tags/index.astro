@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { taxSlug } from '../../lib/posts';
+
+const posts = await getCollection('blog');
+const tags = new Map<string, number>();
+for (const p of posts) for (const t of p.data.tags ?? []) tags.set(t, (tags.get(t) ?? 0) + 1);
+const list = [...tags.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-CN'));
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`标签 - ${SITE_TITLE}`} description="文章标签" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>标签</h1>
+			<ul class="tags">
+				{list.map(([t, n]) => (
+					<li>
+						<a href={`/tags/${taxSlug(t)}/`}>{t}</a>
+						<span class="count">{n}</span>
+					</li>
+				))}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.tags {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.8em;
+	}
+	.tags li {
+		background: rgb(var(--gray-light));
+		padding: 0.3em 0.8em;
+		border-radius: 999px;
+		font-size: 0.9em;
+	}
+	.count {
+		color: rgb(var(--gray));
+		margin-left: 0.4em;
+	}
+</style>

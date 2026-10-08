@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { postHref, taxSlug } from '../../lib/posts';
+
+export async function getStaticPaths() {
+	const all = await getCollection('blog');
+	const tags = new Map<string, string>();
+	for (const p of all) for (const t of p.data.tags ?? []) tags.set(taxSlug(t), t);
+	return [...tags.entries()].map(([slug, t]) => ({ params: { tag: slug }, props: { tag: t } }));
+}
+
+const { tag } = Astro.props;
+const posts = (await getCollection('blog')).filter((p) => (p.data.tags ?? []).includes(tag));
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`${tag} - ${SITE_TITLE}`} description={`标签：${tag}`} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>标签：{tag}</h1>
+			<p class="count">共 {posts.length} 篇</p>
+			<ul class="post-list">
+				{posts
+					.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+					.map((p) => (
+						<li>
+							<a href={postHref(p)}>{p.data.title}</a>
+							<span class="date">{p.data.pubDate.toLocaleDateString('zh-CN')}</span>
+						</li>
+					))}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.count {
+		color: rgb(var(--gray));
+	}
+	.post-list {
+		list-style: none;
+		padding: 0;
+	}
+	.post-list li {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		padding: 0.4em 0;
+		border-bottom: 1px dashed rgb(var(--gray-light));
+	}
+	.date {
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+		white-space: nowrap;
+	}
+</style>

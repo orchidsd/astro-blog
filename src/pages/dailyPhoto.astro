@@ -1,0 +1,7 @@
+---
+import AlbumDetail from '../components/AlbumDetail.astro';
+import { findAlbum } from '../lib/album';
+const entry = findAlbum('/dailyPhoto')!;
+---
+
+<AlbumDetail entry={entry} />

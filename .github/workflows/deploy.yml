@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Checkout deploy repo
+        uses: actions/checkout@v4
+        with:
+          repository: orchidsd/astro-deploy
+          ref: main
+          path: deploy
+          ssh-key: ${{ secrets.ASTRO_DEPLOY_KEY }}
+
+      - name: Deploy
+        run: |
+          cd deploy
+          git rm -rf --quiet . >/dev/null 2>&1 || true
+          cp -r ../dist/. .
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no changes, skipping commit"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "deploy: update site build"
+            git push
+          fi

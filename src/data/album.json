@@ -1,0 +1,119 @@
+[
+  {
+    "class_name": "世界各地夕阳与风景",
+    "path_name": "/wordScenery",
+    "type": 2,
+    "description": "因为到不了世界各地，所以请网友们发来了各地的夕阳与风景🌇。",
+    "cover": "https://img.weiguang.eu.org/file/nPX9jpHG.webp",
+    "top_background": "https://img.weiguang.eu.org/file/jfByZPO6.webp",
+    "rowHeight": 220,
+    "limit": 10,
+    "lazyload": true,
+    "btnLazyload": false,
+    "url": false,
+    "top_link": "/album",
+    "top_btn_text": "返回",
+    "album_list": [
+      {
+        "date": "2026/7/26 08:00:00",
+        "content": "南昌的一角。",
+        "address": "江西南昌",
+        "from": "泪滴淅淅",
+        "image": [
+          "https://img.weiguang.eu.org/file/JMwGMk1e.webp"
+        ]
+      },
+      {
+        "date": "2022-10-25",
+        "content": "暴雨后的天空。",
+        "address": "江西南昌",
+        "from": "西瓜啵啵",
+        "image": [
+          "https://img.weiguang.eu.org/file/Bj8R3MWn.webp",
+          "https://img.weiguang.eu.org/file/jJLh388s.webp"
+        ]
+      }
+    ]
+  },
+  {
+    "class_name": "Pixiv 二次元插画",
+    "path_name": "/pixiv",
+    "type": 2,
+    "description": "收集喜欢的 Pixiv 画师作品，持续更新中🎨。",
+    "cover": "https://img.weiguang.eu.org/file/8FU4tnLG.webp",
+    "top_background": "https://img.weiguang.eu.org/file/uRXQKQDk.webp",
+    "rowHeight": 220,
+    "limit": 20,
+    "lazyload": true,
+    "btnLazyload": false,
+    "url": false,
+    "top_link": "/album",
+    "top_btn_text": "返回",
+    "album_list": [
+      {
+        "date": "2026-07-30",
+        "content": "示例画作",
+        "image": [
+          "https://img.weiguang.eu.org/file/1785332478982_59728944_p0.png",
+          "https://img.weiguang.eu.org/file/1785248974883_1000063902.jpg",
+          "https://img.weiguang.eu.org/file/1785249010151_1000063792.png",
+          "https://img.weiguang.eu.org/file/p9Yc80Uz.webp",
+          "https://img.weiguang.eu.org/file/1781467720756_109578976_p0.webp",
+          "https://img.weiguang.eu.org/file/1784742148518_93180586_p0.webp",
+          "https://img.weiguang.eu.org/file/1782483882123_103466851_p0.webp",
+          "https://img.weiguang.eu.org/file/zZDbtf8g.webp",
+          "https://img.weiguang.eu.org/file/1778757872625_1000061375.jpg",
+          "https://img.weiguang.eu.org/file/PjpB8EzR.webp",
+          "https://img.weiguang.eu.org/file/lJ28mDWF.webp",
+          "https://img.weiguang.eu.org/file/1780340050004_131049453_p0.webp",
+          "https://img.weiguang.eu.org/file/1781467712922_79663517_p0.webp",
+          "https://img.weiguang.eu.org/file/1776990244471-12652dd6cc3ab0790ddb1e49bad58653.jpg",
+          "https://img.weiguang.eu.org/file/5RpcxuTg.webp",
+          "https://img.weiguang.eu.org/file/jtcsX0Rw.webp",
+          "https://img.weiguang.eu.org/file/kb1A1Baf.webp",
+          "https://img.weiguang.eu.org/file/QMbhcSGq.webp",
+          "https://img.weiguang.eu.org/file/Gyj0Z7Vi.webp",
+          "https://img.weiguang.eu.org/file/aAgCuemZ.webp",
+          "https://img.weiguang.eu.org/file/b9YfhxNm.webp",
+          "https://img.weiguang.eu.org/file/X9i4dFIY.webp",
+          "https://img.weiguang.eu.org/file/SurV7YwL.webp",
+          "https://img.weiguang.eu.org/file/F1tVUnq8.webp",
+          "https://img.weiguang.eu.org/file/ICJgjHM0.webp",
+          "https://img.weiguang.eu.org/file/EgHPjPuR.webp",
+          "https://img.weiguang.eu.org/file/kKvlXYmx.webp",
+          "https://img.weiguang.eu.org/file/EsR4mW6o.webp",
+          "https://img.weiguang.eu.org/file/uQqyaffk.webp",
+          "https://img.weiguang.eu.org/file/8Bsu8EVN.webp",
+          "https://img.weiguang.eu.org/file/ATpOUtAJ.webp",
+          "https://img.weiguang.eu.org/file/6DKFgJN7.webp",
+          "https://img.weiguang.eu.org/file/KOkWxSug.webp",
+          "https://img.weiguang.eu.org/file/HVeCVSSu.webp",
+          "https://img.weiguang.eu.org/file/HiixAezH.webp",
+          "https://img.weiguang.eu.org/file/RqsXaHc3.webp",
+          "https://img.weiguang.eu.org/file/hvn6IpRH.webp",
+          "https://img.weiguang.eu.org/file/lpgP2rjW.webp",
+          "https://img.weiguang.eu.org/file/9O8gMEFa.webp"
+        ]
+      }
+    ]
+  },
+  {
+    "class_name": "我的日常",
+    "path_name": "/dailyPhoto",
+    "type": 1,
+    "description": "这里存放的是有关我自己的一些沙雕生活与有趣的事情。",
+    "top_link": "/album",
+    "top_btn_text": "返回",
+    "top_background": "https://img.weiguang.eu.org/file/3K3bhhm5.webp",
+    "cover": "https://img.weiguang.eu.org/file/rFJeX7Y9.webp",
+    "album_list": [
+      {
+        "date": "2026-5-24",
+        "content": "老几的画",
+        "image": [
+          "https://img.weiguang.eu.org/file/AD5oAdBR.webp"
+        ]
+      }
+    ]
+  }
+]

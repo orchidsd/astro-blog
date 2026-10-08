@@ -1,0 +1,31 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`音乐 - ${SITE_TITLE}`} description="音乐播放器" />
+	</head>
+	<body>
+		<Header />
+		<main class="music">
+			<h1>音乐</h1>
+			<p class="placeholder">
+				音乐播放器正在接入中，敬请期待。日常常听：许嵩、民谣、华语流行与轻音乐。
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.music {
+		width: 720px;
+	}
+	.placeholder {
+		color: rgb(var(--gray));
+	}
+</style>

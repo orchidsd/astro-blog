@@ -1,0 +1,117 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseHead from '../../../../components/BaseHead.astro';
+import Footer from '../../../../components/Footer.astro';
+import Header from '../../../../components/Header.astro';
+import { postPathParts, taxSlug } from '../../../../lib/posts';
+
+type Post = CollectionEntry<'blog'>;
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: postPathParts(post),
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+const { year, month, day, slug } = postPathParts(post);
+const all = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const idx = all.findIndex((p) => p.id === post.id);
+const prev = all[idx + 1];
+const next = all[idx - 1] ?? undefined;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={post.data.title} description={post.data.description} />
+	</head>
+	<body>
+		<Header />
+		<main class="post">
+			<article>
+				<header class="post-head">
+					<h1>{post.data.title}</h1>
+					<div class="post-meta">
+						<time datetime={post.data.pubDate.toISOString()}>
+							{year}-{month}-{day}
+						</time>
+						{post.data.categories?.length > 0 && (
+							<span>
+								{post.data.categories.map((c) => (
+									<a href={`/categories/${taxSlug(c)}/`}>{c}</a>
+								))}
+							</span>
+						)}
+
+					</div>
+				</header>
+				<div class="content">
+					<Content />
+				</div>
+			</article>
+			<nav class="pager">
+				{prev && (
+					<a class="prev" href={`/${postPathParts(prev).year}/${postPathParts(prev).month}/${postPathParts(prev).day}/${prev.id.replace(/\.md$/, '')}/`}>
+						← {prev.data.title}
+					</a>
+				)}
+				{next && (
+					<a
+						class="next"
+						href={`/${postPathParts(next).year}/${postPathParts(next).month}/${postPathParts(next).day}/${next.id.replace(/\.md$/, '')}/`}
+					>
+						{next.data.title} →
+					</a>
+				)}
+			</nav>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.post {
+		width: 800px;
+	}
+	.post-head {
+		margin-bottom: 2em;
+		border-bottom: 1px solid rgb(var(--gray-light));
+		padding-bottom: 1em;
+	}
+	.post-head h1 {
+		margin: 0 0 0.5em;
+		font-size: 1.9em;
+	}
+	.post-meta {
+		color: rgb(var(--gray));
+		font-size: 0.9em;
+		display: flex;
+		gap: 1.5em;
+	}
+	.post-meta a {
+		margin-right: 0.5em;
+	}
+	.content {
+		line-height: 1.9;
+	}
+	.pager {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		margin-top: 3em;
+		padding-top: 1em;
+		border-top: 1px solid rgb(var(--gray-light));
+		font-size: 0.9em;
+	}
+	.pager a {
+		max-width: 45%;
+	}
+	.next {
+		margin-left: auto;
+	}
+</style>

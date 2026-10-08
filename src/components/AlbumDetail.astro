@@ -1,0 +1,75 @@
+---
+import BaseHead from './BaseHead.astro';
+import Footer from './Footer.astro';
+import Header from './Header.astro';
+import { SITE_TITLE } from '../consts';
+import type { AlbumEntry } from '../lib/album';
+
+interface Props {
+	entry: AlbumEntry;
+}
+const { entry } = Astro.props;
+const title = entry?.class_name ?? '相册';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`${title} - ${SITE_TITLE}`} description={entry?.description} />
+	</head>
+	<body>
+		<Header />
+		<main class="album-detail">
+			<p class="back">
+				<a href="/album/">← 返回相册</a>
+			</p>
+			<h1>{entry?.class_name}</h1>
+			<p class="desc">{entry?.description}</p>
+			{entry?.album_list && entry.album_list.length > 0 ? (
+				<ul class="shots">
+					{entry.album_list.map((item) =>
+						item.image.map((src: string) => (
+							<li>
+								<a href={src} target="_blank" rel="noopener">
+									<img src={src} alt={item.content ?? ''} loading="lazy" />
+								</a>
+							</li>
+						)),
+					)}
+				</ul>
+			) : (
+				<p class="empty">暂无内容</p>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.album-detail {
+		width: 900px;
+	}
+	.back a {
+		font-size: 0.9em;
+		color: rgb(var(--gray));
+	}
+	.desc {
+		color: rgb(var(--gray));
+	}
+	.shots {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 0.8em;
+	}
+	.shots img {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: 8px;
+		display: block;
+	}
+	.empty {
+		color: rgb(var(--gray));
+	}
+</style>

@@ -1,0 +1,102 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import link from '../data/link.json';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`友链 - ${SITE_TITLE}`} description="我的好朋友们的博客" />
+	</head>
+	<body>
+		<Header />
+		<main class="link">
+			<h1>友链</h1>
+			<div class="linkmap">
+				<a href="https://www.freecodecamp.com" target="_blank" rel="noopener">添加本站到友链</a>
+			</div>
+			{link.map((group) => (
+				<section>
+					<h2>
+						{group.class_name}
+						<span class="desc">{group.class_desc}</span>
+					</h2>
+					<ul class="cards">
+						{group.link_list.map((item) => (
+							<li class="card">
+								<a href={item.link} target="_blank" rel="noopener">
+									<img src={item.avatar} alt={item.name} loading="lazy" />
+									<span class="info">
+										<span class="site-name">{item.name}</span>
+										<span class="site-descr">{item.descr}</span>
+									</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.link {
+		width: 900px;
+	}
+	.linkmap {
+		margin-bottom: 2em;
+		font-size: 0.9em;
+	}
+	section h2 {
+		margin: 1.5em 0 0.8em;
+		font-size: 1.25em;
+	}
+	.desc {
+		font-size: 0.7em;
+		color: rgb(var(--gray));
+		margin-left: 0.6em;
+	}
+	.cards {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 0.8em;
+	}
+	.card a {
+		display: flex;
+		align-items: center;
+		gap: 0.7em;
+		padding: 0.7em 0.9em;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 10px;
+		height: 100%;
+	}
+	.card img {
+		width: 40px;
+		height: 40px;
+		border-radius: 8px;
+		flex-shrink: 0;
+		object-fit: cover;
+		background: rgb(var(--gray-light));
+	}
+	.card .info {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+	.site-name {
+		font-weight: 600;
+	}
+	.site-descr {
+		font-size: 0.78em;
+		color: rgb(var(--gray));
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+</style>

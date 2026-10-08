@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import { postHref } from '../lib/posts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const years = new Map<number, { month: number; title: string; href: string; date: Date }[]>();
+for (const p of posts) {
+	const d = p.data.pubDate;
+	if (!years.has(d.getFullYear())) years.set(d.getFullYear(), []);
+	years.get(d.getFullYear())!.push({
+		month: d.getMonth() + 1,
+		title: p.data.title,
+		href: postHref(p),
+		date: d,
+	});
+}
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`归档 - ${SITE_TITLE}`} description="文章归档" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>归档</h1>
+			{[...years.entries()].map(([year, months]) => (
+				<section>
+					<h2 class="year">{year}</h2>
+					<ul>
+						{months.map((m) => (
+							<li>
+								<a href={m.href}>{m.title}</a>
+								<span class="date">
+									{year}-{String(m.month).padStart(2, '0')}-
+									{String(m.date.getDate()).padStart(2, '0')}
+								</span>
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.year {
+		margin-top: 2em;
+	}
+	ul {
+		list-style: none;
+		padding: 0;
+	}
+	li {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		padding: 0.4em 0;
+		border-bottom: 1px dashed rgb(var(--gray-light));
+	}
+	.date {
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+		white-space: nowrap;
+	}
+</style>

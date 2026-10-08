@@ -1,0 +1,71 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import album from '../data/album.json';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`相册 - ${SITE_TITLE}`} description="相册收藏" />
+	</head>
+	<body>
+		<Header />
+		<main class="album">
+			<h1>相册</h1>
+			<ul class="grid">
+				{album.map((a) => (
+					<li class="card">
+						<a href={a.path_name}>
+							<img src={a.cover} alt={a.class_name} loading="lazy" />
+							<span class="info">
+								<span class="name">{a.class_name}</span>
+								<span class="descr">{a.description}</span>
+							</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.album {
+		width: 900px;
+	}
+	.grid {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+		gap: 1em;
+	}
+	.card {
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 12px;
+		overflow: hidden;
+		background: rgb(var(--gray-light));
+	}
+	.card img {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		display: block;
+	}
+	.card .info {
+		display: block;
+		padding: 0.7em 0.9em;
+	}
+	.name {
+		font-weight: 600;
+	}
+	.descr {
+		display: block;
+		font-size: 0.82em;
+		color: rgb(var(--gray));
+		margin-top: 0.2em;
+	}
+</style>

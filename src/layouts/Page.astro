@@ -1,0 +1,36 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+const { title = '页面', description = '' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main class="page">
+			<h1>{title}</h1>
+			<article class="content">
+				<slot />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.page {
+		width: 800px;
+	}
+	.content {
+		line-height: 1.9;
+	}
+</style>

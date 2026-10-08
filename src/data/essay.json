@@ -1,0 +1,19 @@
+[
+  {
+    "title": "即刻短文",
+    "subTitle": "咸鱼的日常生活。",
+    "tips": "随时随地，分享生活",
+    "buttonText": "关于我",
+    "buttonLink": "/about/",
+    "limit": 30,
+    "home_essay": true,
+    "top_background": "https://img.weiguang.eu.org/file/1776195975609_「一緒に堕落しよ？」_p0.2024年-2月-2日.jpg",
+    "essay_list": [
+      {
+        "content": "JOJO是真的好看！",
+        "date": "2026/04/21",
+        "link": "https://www.bilibili.com/bangumi/play/ss39431?spm_id_from=333.337.0.0"
+      }
+    ]
+  }
+]

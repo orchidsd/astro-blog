@@ -1,0 +1,39 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`页面不存在 - ${SITE_TITLE}`} description="404 页面不存在" />
+	</head>
+	<body>
+		<Header />
+		<main class="nf">
+			<h1 class="code">404</h1>
+			<p>页面不存在或已移动。</p>
+			<p>
+				<a href="/">返回首页</a> · <a href="/archives/">查看归档</a> ·{' '}
+				<a href="/search/">搜索</a>
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.nf {
+		width: 720px;
+		text-align: center;
+		padding: 4em 0;
+	}
+	.code {
+		font-size: 4em;
+		margin: 0;
+	}
+	.nf p {
+		color: rgb(var(--gray));
+	}
+</style>

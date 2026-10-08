@@ -1,0 +1,152 @@
+[
+  {
+    "class_name": "关于页",
+    "subtitle": "生活明朗，万物可爱✨",
+    "avatarImg": "/img/siteicon/avatar.webp",
+    "avatarSkills": {
+      "left": [
+        "🤖️ 数码科技爱好者",
+        "🔍 分享与热心帮助",
+        "🏠 智能家居小能手",
+        "🔨 设计开发一条龙",
+        "🎮 游戏开发探索者"
+      ],
+      "right": [
+        "专修交互与设计 🤝",
+        "脚踏实地行动派 🏃",
+        "团队小组发动机 🧱",
+        "壮汉人狠话不多 💢",
+        "创意无限的梦想家 🌟"
+      ]
+    },
+    "name": "Yoki",
+    "description": "是一名 前端工程师、学生、独立开发者、博主、设计爱好者",
+    "aboutsiteTips": {
+      "tips": "追求",
+      "title1": "源于",
+      "title2": "热爱而去 感受",
+      "word": [
+        "学习",
+        "生活",
+        "程序",
+        "体验",
+        "创造"
+      ]
+    },
+    "helloAbout": "Hello there! 👋",
+    "skillsTips": {
+      "tips": "技能",
+      "title": "开启创造力"
+    },
+    "careers": {
+      "tips": "生涯",
+      "title": "无限进步",
+      "list": [
+        {
+          "desc": "EDU,软件工程专业",
+          "color": "#357ef5"
+        },
+        {
+          "desc": "自学,前端开发",
+          "color": "#f54242"
+        },
+        {
+          "desc": "实习,UI/UX设计师",
+          "color": "#42f554"
+        }
+      ],
+      "img": "https://img.weiguang.eu.org/file/1785397413257_edu.webp"
+    },
+    "statistic": {
+      "link": "/archives",
+      "text": "文章隧道",
+      "cover": "https://img.weiguang.eu.org/file/1785397768486_644f4b037b930.webp"
+    },
+    "map": {
+      "title": "我现在住在",
+      "StrengthenTitle": "中国，江西",
+      "background": "https://img.weiguang.eu.org/file/m7QJzSL9.webp",
+      "backgroundDark": "https://img.weiguang.eu.org/file/nMAxraeD.webp"
+    },
+    "selfInfo": {
+      "selfInfoTips1": "生于",
+      "selfInfoContentYear": 2000,
+      "selfInfoTips2": "长春工程学院",
+      "selfInfoContent2": "电气工程及其自动化",
+      "selfInfoTips3": "现在职业",
+      "selfInfoContent3": "大三学生👨‍🎓"
+    },
+    "personalities": {
+      "author_name": "鉴赏家",
+      "personality_type": "ISTP-A",
+      "photo_url": "https://img.weiguang.eu.org/file/1776195975609_「一緒に堕落しよ？」_p0.2024年-2月-2日.jpg",
+      "personality_img": "https://img.weiguang.eu.org/file/0uHwP5DI.svg",
+      "name_url": "https://www.16personalities.com/ch/%E7%BB%93%E6%9E%9C/istp-a/m/wyvaeko49"
+    },
+    "maxim": {
+      "maxim_tips": "座右铭",
+      "maxim_top": "生活明朗，",
+      "maxim_bottom": "万物可爱。"
+    },
+    "buff": {
+      "buff_tips": "特长",
+      "buff_top": "脑回路新奇的 酸菜鱼",
+      "buff_bottom": "二次元指数 MAX"
+    },
+    "game": {
+      "game_tips": "爱好游戏",
+      "game_title": "泰拉瑞亚",
+      "game_bg": "https://img.weiguang.eu.org/file/1776768154395_image.png"
+    },
+    "comic": {
+      "comic_tips": "爱好番剧",
+      "comic_title": "追番",
+      "comic_list": [
+        {
+          "name": "进击的巨人",
+          "href": "https://bangumi.vip/subject/55770",
+          "cover": "https://lain.bangumi.vip/pic/cover/l/78/c9/55770_HsJfh.jpg"
+        },
+        {
+          "name": "紫罗兰永恒花园",
+          "href": "https://bangumi.vip/subject/183878",
+          "cover": "https://lain.bangumi.vip/r/400/pic/cover/l/1e/e2/183878_Fef1o.jpg"
+        },
+        {
+          "name": "鬼灭之刃",
+          "href": "https://bangumi.vip/subject/245665",
+          "cover": "https://lain.bangumi.vip/r/400/pic/cover/l/9d/d1/245665_5an54.jpg"
+        },
+        {
+          "name": "CLANNAD",
+          "href": "https://bangumi.vip/subject/51",
+          "cover": "https://lain.bangumi.vip/r/400/pic/cover/l/28/38/51_z0Ly8.jpg"
+        },
+        {
+          "name": "OVERLORD",
+          "href": "https://bangumi.vip/subject/112146",
+          "cover": "https://lain.bangumi.vip/r/400/pic/cover/l/cd/a9/112146_qr9m3.jpg"
+        }
+      ]
+    },
+    "like": {
+      "like_tips": "关注偏好",
+      "like_title": "数码科技",
+      "like_bg": "https://img.weiguang.eu.org/file/Dk3YBhCY.webp",
+      "like_bottom": "手机、电脑软硬件、智能设备"
+    },
+    "music": {
+      "music_tips": "音乐偏好",
+      "music_title": "许嵩、民谣、华语流行、轻音乐",
+      "music_bg": "https://p2.music.126.net/Mrg1i7DwcwjWBvQPIMt_Mg==/79164837213438.jpg",
+      "music_link": "/music"
+    },
+    "reward_list": [
+      {
+        "name": "Yoki",
+        "amount": 200,
+        "datatime": "2026-4-20"
+      }
+    ]
+  }
+]

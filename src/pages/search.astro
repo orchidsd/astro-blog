@@ -1,0 +1,99 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`搜索 - ${SITE_TITLE}`} description="站内搜索" />
+	</head>
+	<body>
+		<Header />
+		<main class="search">
+			<h1>搜索</h1>
+			<input id="q" type="search" placeholder="输入关键词，如 Hexo / Cloudflare …" autocomplete="off" />
+			<ul id="results" class="results"></ul>
+			<p id="empty" class="empty" hidden>未找到匹配的文章。</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+<script>
+	const q = document.getElementById('q') as HTMLInputElement;
+	const results = document.getElementById('results') as HTMLUListElement;
+	const empty = document.getElementById('empty') as HTMLParagraphElement;
+
+	let index: { title: string; href: string; description: string; categories: string[]; tags: string[] }[] = [];
+
+	async function load() {
+		if (index.length) return;
+		index = await (await fetch('/search-index.json')).json();
+	}
+
+	function render() {
+		const kw = q.value.trim().toLowerCase();
+		if (!kw) {
+			results.innerHTML = '';
+			empty.hidden = true;
+			return;
+		}
+		const hits = index.filter((p) =>
+			[p.title, p.description, ...p.categories, ...p.tags].join(' ').toLowerCase().includes(kw),
+		);
+		results.innerHTML = hits
+			.map(
+				(p) =>
+					`<li><a href="${p.href}"><span class="t">${p.title}</span>` +
+					(p.description ? `<span class="d">${p.description}</span>` : '') +
+					`</a></li>`,
+			)
+			.join('');
+		empty.hidden = hits.length > 0;
+	}
+
+	q.addEventListener('input', () => {
+		void load().then(render);
+	});
+</script>
+<style>
+	.search {
+		width: 720px;
+	}
+	#q {
+		width: 100%;
+		padding: 0.7em 1em;
+		font-size: 1em;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 10px;
+	}
+	.results {
+		list-style: none;
+		padding: 0;
+		margin-top: 1.5em;
+	}
+	.results li {
+		margin-bottom: 0.6em;
+	}
+	.results a {
+		display: block;
+		padding: 0.8em 1em;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 10px;
+	}
+	.results .t {
+		font-weight: 600;
+	}
+	.results .d {
+		display: block;
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+		margin-top: 0.2em;
+	}
+	.empty {
+		color: rgb(var(--gray));
+		margin-top: 1.5em;
+	}
+</style>

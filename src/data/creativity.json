@@ -1,0 +1,57 @@
+[
+  {
+    "class_name": "开启创造力",
+    "creativity_list": [
+      {
+        "name": "HTML",
+        "color": "#e34f26",
+        "icon": "https://cdn.simpleicons.org/html5/ffffff"
+      },
+      {
+        "name": "CSS",
+        "color": "#1572b6",
+        "icon": "https://cdn.simpleicons.org/css/ffffff"
+      },
+      {
+        "name": "JavaScript",
+        "color": "#f7df1e",
+        "icon": "https://cdn.simpleicons.org/javascript/000000"
+      },
+      {
+        "name": "Vue",
+        "color": "#42b883",
+        "icon": "https://cdn.simpleicons.org/vuedotjs/ffffff"
+      },
+      {
+        "name": "Node.js",
+        "color": "#339933",
+        "icon": "https://cdn.simpleicons.org/nodedotjs/ffffff"
+      },
+      {
+        "name": "Git",
+        "color": "#f05032",
+        "icon": "https://cdn.simpleicons.org/git/ffffff"
+      },
+      {
+        "name": "Docker",
+        "color": "#2496ed",
+        "icon": "https://cdn.simpleicons.org/docker/ffffff"
+      },
+      {
+        "name": "Figma",
+        "color": "#f24e1e",
+        "icon": "https://cdn.simpleicons.org/figma/ffffff"
+      },
+      {
+        "name": "Python",
+        "color": "#3776ab",
+        "icon": "https://cdn.simpleicons.org/python/ffffff"
+      },
+      {
+        "name": "Linux",
+        "color": "#fcc624",
+        "icon": "https://cdn.simpleicons.org/linux/000000"
+      }
+    ]
+  }
+]

@@ -1,0 +1,30 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`朋友圈 - ${SITE_TITLE}`} description="友链朋友圈" />
+	</head>
+	<body>
+		<Header />
+		<main class="fcircle">
+			<h1>朋友圈</h1>
+			<p class="placeholder">友链朋友圈动态墙正在接入中，敬请期待。</p>
+			<p class="placeholder">友链申请可前往 <a href="/link/">友链页</a>。</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.fcircle {
+		width: 720px;
+	}
+	.placeholder {
+		color: rgb(var(--gray));
+	}
+</style>
